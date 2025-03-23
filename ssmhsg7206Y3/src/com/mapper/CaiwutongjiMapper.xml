@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.CaiwutongjiMapper">
+  <resultMap id="BaseResultMap" type="com.entity.Caiwutongji">
+    <id column="id" jdbcType="INTEGER" property="id" />
+	<result column="caiwubianhao" jdbcType="VARCHAR" property="caiwubianhao" />    <result column="caiwumingcheng" jdbcType="VARCHAR" property="caiwumingcheng" />    <result column="caiwubaobiao" jdbcType="VARCHAR" property="caiwubaobiao" />    <result column="shuoming" jdbcType="VARCHAR" property="shuoming" />    
+    <result column="addtime" jdbcType="VARCHAR" property="addtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, caiwubianhao,caiwumingcheng,caiwubaobiao,shuoming, addtime
+  </sql>
+  <select id="quchongCaiwutongji"  parameterType="java.util.Map" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from caiwutongji 
+    where caiwubianhao = #{caiwubianhao,jdbcType=VARCHAR} limit 0,1
+  </select>
+ <select id="getCount"   resultType="int" parameterType="java.util.Map" >
+    select  count(*) from caiwutongji  where 1=1
+    <if test="caiwubianhao!=null">and caiwubianhao like  concat('%',#{caiwubianhao,jdbcType=VARCHAR},'%')</if>     <if test="caiwumingcheng!=null">and caiwumingcheng like  concat('%',#{caiwumingcheng,jdbcType=VARCHAR},'%')</if>     <if test="caiwubaobiao!=null">and caiwubaobiao like  concat('%',#{caiwubaobiao,jdbcType=VARCHAR},'%')</if>     <if test="shuoming!=null">and shuoming like  concat('%',#{shuoming,jdbcType=VARCHAR},'%')</if>     
+  </select> 
+  <select id="getAll"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from caiwutongji  where 1=1
+    <if test="caiwubianhao!=null">
+    and caiwubianhao =#{caiwubianhao}
+    </if>
+  </select>
+  
+  <select id="getsycaiwutongji1"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from caiwutongji  where 1=1
+    limit 0,5
+  </select>
+  <select id="getsycaiwutongji2"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from caiwutongji  where 1=1
+    limit 0,5
+  </select>
+  <select id="getsycaiwutongji3"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from caiwutongji  where 1=1
+    limit 0,5
+  </select>
+  
+   <select id="getByPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select  <include refid="Base_Column_List" /> 
+     from caiwutongji where 1=1 
+     <if test="caiwubianhao!=null">and caiwubianhao like  concat('%',#{caiwubianhao,jdbcType=VARCHAR},'%')</if>     <if test="caiwumingcheng!=null">and caiwumingcheng like  concat('%',#{caiwumingcheng,jdbcType=VARCHAR},'%')</if>     <if test="caiwubaobiao!=null">and caiwubaobiao like  concat('%',#{caiwubaobiao,jdbcType=VARCHAR},'%')</if>     <if test="shuoming!=null">and shuoming like  concat('%',#{shuoming,jdbcType=VARCHAR},'%')</if>     
+	 order by id desc
+     <if test="pageno!=null and pageSize!=null">
+     limit #{pageno},#{pageSize}
+     </if>
+     </select>
+	 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from caiwutongji
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from caiwutongji
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Caiwutongji">
+    insert into caiwutongji (id, caiwubianhao,caiwumingcheng,caiwubaobiao,shuoming, addtime)
+    values (#{id,jdbcType=INTEGER}, #{caiwubianhao,jdbcType=VARCHAR},#{caiwumingcheng,jdbcType=VARCHAR},#{caiwubaobiao,jdbcType=VARCHAR},#{shuoming,jdbcType=VARCHAR}, #{addtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Caiwutongji">
+    insert into caiwutongji
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="caiwubianhao != null"> caiwubianhao, </if>      <if test="caiwumingcheng != null"> caiwumingcheng, </if>      <if test="caiwubaobiao != null"> caiwubaobiao, </if>      <if test="shuoming != null"> shuoming, </if>      
+      <if test="addtime != null">
+        addtime,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="caiwubianhao != null"> #{caiwubianhao,jdbcType=VARCHAR},</if>      <if test="caiwumingcheng != null"> #{caiwumingcheng,jdbcType=VARCHAR},</if>      <if test="caiwubaobiao != null"> #{caiwubaobiao,jdbcType=VARCHAR},</if>      <if test="shuoming != null"> #{shuoming,jdbcType=VARCHAR},</if>      
+      <if test="addtime != null">
+        #{addtime,jdbcType=VARCHAR},
+      </if>
+      
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Caiwutongji">
+    update caiwutongji
+    <set>
+	  <if test="caiwubianhao != null"> caiwubianhao = #{caiwubianhao,jdbcType=VARCHAR},</if>      <if test="caiwumingcheng != null"> caiwumingcheng = #{caiwumingcheng,jdbcType=VARCHAR},</if>      <if test="caiwubaobiao != null"> caiwubaobiao = #{caiwubaobiao,jdbcType=VARCHAR},</if>      <if test="shuoming != null"> shuoming = #{shuoming,jdbcType=VARCHAR},</if>      
+      <if test="addtime != null">
+        addtime = #{addtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.entity.Caiwutongji">
+    update caiwutongji
+    set caiwubianhao = #{caiwubianhao,jdbcType=VARCHAR},caiwumingcheng = #{caiwumingcheng,jdbcType=VARCHAR},caiwubaobiao = #{caiwubaobiao,jdbcType=VARCHAR},shuoming = #{shuoming,jdbcType=VARCHAR},  addtime = #{addtime,jdbcType=VARCHAR} where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

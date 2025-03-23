@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.LvkexinxiMapper">
+  <resultMap id="BaseResultMap" type="com.entity.Lvkexinxi">
+    <id column="id" jdbcType="INTEGER" property="id" />
+	<result column="lvkebianhao" jdbcType="VARCHAR" property="lvkebianhao" />    <result column="lvkexingming" jdbcType="VARCHAR" property="lvkexingming" />    <result column="xingbie" jdbcType="VARCHAR" property="xingbie" />    <result column="dianhua" jdbcType="VARCHAR" property="dianhua" />    <result column="dizhi" jdbcType="VARCHAR" property="dizhi" />    
+    <result column="addtime" jdbcType="VARCHAR" property="addtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, lvkebianhao,lvkexingming,xingbie,dianhua,dizhi, addtime
+  </sql>
+  <select id="quchongLvkexinxi"  parameterType="java.util.Map" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from lvkexinxi 
+    where lvkebianhao = #{lvkebianhao,jdbcType=VARCHAR} limit 0,1
+  </select>
+ <select id="getCount"   resultType="int" parameterType="java.util.Map" >
+    select  count(*) from lvkexinxi  where 1=1
+    <if test="lvkebianhao!=null">and lvkebianhao like  concat('%',#{lvkebianhao,jdbcType=VARCHAR},'%')</if>     <if test="lvkexingming!=null">and lvkexingming like  concat('%',#{lvkexingming,jdbcType=VARCHAR},'%')</if>     <if test="xingbie!=null">and xingbie like  concat('%',#{xingbie,jdbcType=VARCHAR},'%')</if>     <if test="dianhua!=null">and dianhua like  concat('%',#{dianhua,jdbcType=VARCHAR},'%')</if>     <if test="dizhi!=null">and dizhi like  concat('%',#{dizhi,jdbcType=VARCHAR},'%')</if>     
+  </select> 
+  <select id="getAll"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from lvkexinxi  where 1=1
+    <if test="lvkebianhao!=null">
+    and lvkebianhao =#{lvkebianhao}
+    </if>
+  </select>
+  
+  <select id="getsylvkexinxi1"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from lvkexinxi  where 1=1
+    limit 0,5
+  </select>
+  <select id="getsylvkexinxi2"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from lvkexinxi  where 1=1
+    limit 0,5
+  </select>
+  <select id="getsylvkexinxi3"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from lvkexinxi  where 1=1
+    limit 0,5
+  </select>
+  
+   <select id="getByPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select  <include refid="Base_Column_List" /> 
+     from lvkexinxi where 1=1 
+     <if test="lvkebianhao!=null">and lvkebianhao like  concat('%',#{lvkebianhao,jdbcType=VARCHAR},'%')</if>     <if test="lvkexingming!=null">and lvkexingming like  concat('%',#{lvkexingming,jdbcType=VARCHAR},'%')</if>     <if test="xingbie!=null">and xingbie like  concat('%',#{xingbie,jdbcType=VARCHAR},'%')</if>     <if test="dianhua!=null">and dianhua like  concat('%',#{dianhua,jdbcType=VARCHAR},'%')</if>     <if test="dizhi!=null">and dizhi like  concat('%',#{dizhi,jdbcType=VARCHAR},'%')</if>     
+	 order by id desc
+     <if test="pageno!=null and pageSize!=null">
+     limit #{pageno},#{pageSize}
+     </if>
+     </select>
+	 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lvkexinxi
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from lvkexinxi
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Lvkexinxi">
+    insert into lvkexinxi (id, lvkebianhao,lvkexingming,xingbie,dianhua,dizhi, addtime)
+    values (#{id,jdbcType=INTEGER}, #{lvkebianhao,jdbcType=VARCHAR},#{lvkexingming,jdbcType=VARCHAR},#{xingbie,jdbcType=VARCHAR},#{dianhua,jdbcType=VARCHAR},#{dizhi,jdbcType=VARCHAR}, #{addtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Lvkexinxi">
+    insert into lvkexinxi
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="lvkebianhao != null"> lvkebianhao, </if>      <if test="lvkexingming != null"> lvkexingming, </if>      <if test="xingbie != null"> xingbie, </if>      <if test="dianhua != null"> dianhua, </if>      <if test="dizhi != null"> dizhi, </if>      
+      <if test="addtime != null">
+        addtime,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="lvkebianhao != null"> #{lvkebianhao,jdbcType=VARCHAR},</if>      <if test="lvkexingming != null"> #{lvkexingming,jdbcType=VARCHAR},</if>      <if test="xingbie != null"> #{xingbie,jdbcType=VARCHAR},</if>      <if test="dianhua != null"> #{dianhua,jdbcType=VARCHAR},</if>      <if test="dizhi != null"> #{dizhi,jdbcType=VARCHAR},</if>      
+      <if test="addtime != null">
+        #{addtime,jdbcType=VARCHAR},
+      </if>
+      
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Lvkexinxi">
+    update lvkexinxi
+    <set>
+	  <if test="lvkebianhao != null"> lvkebianhao = #{lvkebianhao,jdbcType=VARCHAR},</if>      <if test="lvkexingming != null"> lvkexingming = #{lvkexingming,jdbcType=VARCHAR},</if>      <if test="xingbie != null"> xingbie = #{xingbie,jdbcType=VARCHAR},</if>      <if test="dianhua != null"> dianhua = #{dianhua,jdbcType=VARCHAR},</if>      <if test="dizhi != null"> dizhi = #{dizhi,jdbcType=VARCHAR},</if>      
+      <if test="addtime != null">
+        addtime = #{addtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.entity.Lvkexinxi">
+    update lvkexinxi
+    set lvkebianhao = #{lvkebianhao,jdbcType=VARCHAR},lvkexingming = #{lvkexingming,jdbcType=VARCHAR},xingbie = #{xingbie,jdbcType=VARCHAR},dianhua = #{dianhua,jdbcType=VARCHAR},dizhi = #{dizhi,jdbcType=VARCHAR},  addtime = #{addtime,jdbcType=VARCHAR} where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
